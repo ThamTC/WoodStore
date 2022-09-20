@@ -4,11 +4,11 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  // app.enableVersioning({
-  //   type: VersioningType.URI,
-  //   defaultVersion: ['', 'v1', 'v2'],
-  //   prefix: ''
-  // })
+  app.enableVersioning({
+    type: VersioningType.URI,
+    defaultVersion: ['', 'v1', 'v2'],
+    prefix: ''
+  })
   await app.listen(3000);
 }
 bootstrap();

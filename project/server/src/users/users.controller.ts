@@ -5,9 +5,9 @@ import { UsersService } from './users.service';
 @Controller("users")
 export class UsersController {
     constructor(private readonly userService: UsersService) { }
-
+    @Version("v1")
     @Get()
-    async getUsers(): Promise<User[]> {
+    async getUsersV1(): Promise<User[]> {
         return this.userService.getUsers()
     }
 }
