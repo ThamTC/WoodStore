@@ -7,6 +7,7 @@ import { expiresTime, jwtConstants } from './constants';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import * as bcrypt from 'bcrypt';
 import * as moment from 'moment'
+import { UserResponseData } from 'src/users/interface/user.interface';
 
 @Injectable()
 export class AuthService {
@@ -29,14 +30,17 @@ export class AuthService {
     if (!check) {
       return null;
     }
-    return user.email;
+    const { password, ...result } = user
+    return result;
   }
 
-  async signin(user: User) {
+  async signin(user: UserResponseData) {
     const payload: AuthPayload = {
       email: user.email
     }
+
     return {
+      email: user.email,
       expiresIn: moment().add(expiresTime.time, 'minutes'),
       refreshToken: this.jwtService.sign(payload, { secret: jwtConstants.secret })
     }

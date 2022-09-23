@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from './store/app.state';
+import { autoSignin } from './store/auth/auth.action';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +10,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'client';
+  constructor(private store: Store<AppState>) {
+    this.store.dispatch(autoSignin())
+  }
 }

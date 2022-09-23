@@ -1,1 +1,30 @@
-<p>signup works!</p>
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h3>Signup</h3>
+        <form [formGroup]="signupForm" (ngSubmit)="onSignupSubmit()">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label>FirstName</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label>LastName</label>
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label>Email</label>
+                <input type="email" class="form-control" formControlName="email">
+            </div>
+            <div class="mb-3">
+                <label>Create Password</label>
+                <input type="password" class="form-control" formControlName="createPassword">
+            </div>
+            <div class="mb-3">
+                <label>Confirm Password</label>
+                <input type="password" class="form-control" formControlName="confirmPassword">
+            </div>
+            <button class="btn btn-primary" type="submit">Signup</button>
+        </form>
+    </div>
+</div>

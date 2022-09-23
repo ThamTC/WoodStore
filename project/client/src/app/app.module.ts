@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
-import { SpinnerComponent } from './spinner/spinner.component';
 import { StoreModule } from '@ngrx/store';
 import { appReducer } from './store/app.state';
 import { EffectsModule } from '@ngrx/effects';
@@ -18,8 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     AppComponent,
     HomeComponent,
-    HeaderComponent,
-    SpinnerComponent
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

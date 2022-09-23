@@ -4,23 +4,31 @@ import { RouterModule, Routes } from '@angular/router';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { EffectsModule } from '@ngrx/effects';
+import { SpinnerComponent } from '../spinner/spinner.component';
 
 const routes: Routes = [
   {
-    path: "signin",
-    component: SigninComponent
+    path: '',
+    children: [
+      {
+        path: '',
+        redirectTo: 'signin',
+        pathMatch: 'full'
+      },
+      {
+        path: 'signin',
+        component: SigninComponent,
+      },
+      {
+        path: 'signup',
+        component: SignupComponent,
+      },
+    ],
   },
-  {
-    path: "signup",
-    component: SignupComponent
-  }
-]
+];
 
 @NgModule({
-  declarations: [SigninComponent, SignupComponent],
-  imports: [
-    CommonModule, ReactiveFormsModule, RouterModule.forChild(routes)
-  ]
+  declarations: [SigninComponent, SignupComponent, SpinnerComponent],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule.forChild(routes)],
 })
 export class AuthModule { }

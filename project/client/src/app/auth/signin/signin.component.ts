@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { AppState } from 'src/app/store/app.state';
-import { signinStart } from 'src/app/store/auth/auth.action';
-import { setSpinnerLoading } from 'src/app/store/shared/shared.action';
+import { autoSignin, signinStart } from 'src/app/store/auth/auth.action';
+import { setErrorMessage, setSpinnerLoading } from 'src/app/store/shared/shared.action';
+import { getErrorMessage, isShowSpinner } from 'src/app/store/shared/shared.selector';
 
 @Component({
   selector: 'app-signin',
@@ -12,6 +14,8 @@ import { setSpinnerLoading } from 'src/app/store/shared/shared.action';
 })
 export class SigninComponent implements OnInit {
   signinForm: FormGroup;
+  showSpinner: Observable<boolean> | undefined;
+  showErrorMessage: Observable<string> | undefined;
   constructor(private store: Store<AppState>) {
     this.signinForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -46,6 +50,8 @@ export class SigninComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.showSpinner = this.store.select(isShowSpinner)
+    this.showErrorMessage = this.store.select(getErrorMessage)
   }
 
   onSignin() {
@@ -54,6 +60,7 @@ export class SigninComponent implements OnInit {
     }
     const email = this.signinForm.value.email
     const password = this.signinForm.value.password
+    this.store.dispatch(setErrorMessage({ message: "" }))
     this.store.dispatch(setSpinnerLoading({ status: true }))
     this.store.dispatch(signinStart({ email, password }))
   }

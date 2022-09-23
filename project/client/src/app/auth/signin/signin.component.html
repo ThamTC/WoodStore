@@ -1,18 +1,27 @@
 <div class="row">
     <div class="col-md-6 offset-md-3">
+        <div *ngIf="showErrorMessage | async as error" class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
         <h3 class="mb-3">Signin</h3>
         <form [formGroup]="signinForm" (ngSubmit)="onSignin()">
             <div class="mb-3">
                 <label for="">Email</label>
-                <input type="email" class="form-control" formControlName="email">
+                <input type="email" class="form-control" formControlName="email" />
             </div>
             <div class="text-danger">{{ showEmailError() }}</div>
             <div class="mb-3">
                 <label for="">Password</label>
-                <input type="password" class="form-control" formControlName="password">
+                <input type="password" class="form-control" formControlName="password" />
             </div>
-            <div class="text-danger">{{showPasswordError()}}</div>
-            <button type="submit" class="btn btn-primary" [disabled]="!signinForm.valid">Signin</button>
+            <div class="text-danger">{{ showPasswordError() }}</div>
+            <button *ngIf="!(showSpinner | async); else elseShowSpinner" type="submit" class="btn btn-primary"
+                [disabled]="!signinForm.valid">
+                Signin
+            </button>
+            <ng-template #elseShowSpinner>
+                <app-spinner></app-spinner>
+            </ng-template>
         </form>
     </div>
 </div>
